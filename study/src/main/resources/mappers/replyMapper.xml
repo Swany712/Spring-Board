@@ -2,13 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replyMapper">
 
-	<!-- 댓글 조회 -->
+	<!-- 댓글 조회  -->
 	<select id="readReply" resultType="kr.co.vo.ReplyVO">
-    	SELECT
-    		  RNO, CONTENT, WRITER, REGDATE
-    	 FROM MP_REPLY
-    	WHERE BNO = #{bno}
+		SELECT	BNO, 
+				RNO, 
+				CONTENT, 
+				WRITER, 
+				REGDATE 
+		FROM (
+		    	SELECT 	BNO, 
+		    			RNO, 
+		    			CONTENT, 
+		    			WRITER, 
+		    			REGDATE, 
+		    			ROW_NUMBER() OVER(ORDER BY RNO DESC) AS RNUM 
+		    			FROM MP_REPLY
+		    			WHERE <include refid="chk_bno"></include>
+		) MP
+		WHERE RNUM BETWEEN #{replyRowStart} AND #{replyRowEnd} 
+		ORDER BY RNO DESC
 	</select>
+
+	<select id="replyListCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BNO)
+		  FROM MP_REPLY
+		 WHERE BNO > 0 AND BNO = #{bno}
+	]]>
+	</select>
+	
+	<sql id="chk_bno">
+		BNO = #{bno}
+	</sql>
 	
 	<!-- 댓글 작성 -->
 	<insert id="writeReply">

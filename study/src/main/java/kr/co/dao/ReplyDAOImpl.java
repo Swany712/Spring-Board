@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.co.vo.ReplyVO;
+import kr.co.vo.SearchCriteria;
 
 @Repository
 public class ReplyDAOImpl implements ReplyDAO {
@@ -16,8 +17,14 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	//댓글 조회
 	@Override
-	public List<ReplyVO> readReply(int bno) throws Exception {
-		return sql.selectList("replyMapper.readReply", bno);
+	public List<ReplyVO> readReply(SearchCriteria scri) throws Exception {
+		return sql.selectList("replyMapper.readReply", scri);
+	}
+	
+	//댓글 총 갯수
+	@Override
+	public int replyListCount(int bno) throws Exception {
+		return sql.selectOne("replyMapper.replyListCount", bno);
 	}
 	
 	//댓글 작성

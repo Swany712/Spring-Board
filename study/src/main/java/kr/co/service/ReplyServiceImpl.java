@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.dao.ReplyDAO;
 import kr.co.vo.ReplyVO;
+import kr.co.vo.SearchCriteria;
+
 
 @Service
 public class ReplyServiceImpl implements ReplyService {
@@ -16,9 +18,15 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	//댓글 조회
 	@Override
-	public List<ReplyVO> readReply(int bno) throws Exception {
-		return dao.readReply(bno);
+	public List<ReplyVO> readReply(SearchCriteria scri) throws Exception {
+		return dao.readReply(scri);
 	}	
+	
+	//댓글 총 갯수
+	@Override
+	public int replyListCount(int bno) throws Exception {
+		return dao.replyListCount(bno);
+	}
 	
 	//댓글 작성
 	@Override

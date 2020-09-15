@@ -23,6 +23,7 @@ import kr.co.service.BoardService;
 import kr.co.service.ReplyService;
 import kr.co.vo.BoardVO;
 import kr.co.vo.PageMaker;
+import kr.co.vo.ReplyPageMaker;
 import kr.co.vo.ReplyVO;
 import kr.co.vo.SearchCriteria;
 
@@ -85,8 +86,14 @@ public class BoardController {
 		model.addAttribute("read", service.read(boardVO.getBno()));
 		model.addAttribute("scri", scri);
 		
-		List<ReplyVO> replyList = replyService.readReply(boardVO.getBno());
+		List<ReplyVO> replyList = replyService.readReply(scri);
 		model.addAttribute("replyList", replyList);
+		
+		ReplyPageMaker replyPageMaker = new ReplyPageMaker();
+		replyPageMaker.setCri(scri);
+		replyPageMaker.setTotalCount(replyService.replyListCount(boardVO.getBno()));
+		
+		model.addAttribute("replyPageMaker", replyPageMaker);
 		
 		List<Map<String, Object>> fileList = service.selectFileList(boardVO.getBno());
 		model.addAttribute("file", fileList);
@@ -95,7 +102,7 @@ public class BoardController {
 		
 	}
 	
-	// 게시판 수정뷰
+	//게시판 수정뷰
 	@RequestMapping(value = "/updateView", method = RequestMethod.GET)
 	public String updateView(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("updateView");
@@ -108,7 +115,7 @@ public class BoardController {
 		return "board/updateView";
 	}
 	
-	// 게시판 수정
+	//게시판 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(BoardVO boardVO, 
 						 @ModelAttribute("scri") SearchCriteria scri, 
@@ -127,7 +134,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	// 게시판 삭제
+	//게시판 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(BoardVO boardVO,  @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("delete");

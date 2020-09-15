@@ -149,6 +149,23 @@
 					</ol>
 				</div>
 				
+				<div>
+				  <ul class="pagination">
+				    <c:if test="${replyPageMaker.replyPrev}">
+				    	<li><a href="readView?bno=${read.bno}${replyPageMaker.makeQuery(replyPageMaker.replyStartPage - 1)}">이전</a></li>
+				    </c:if> 
+					
+					<c:forEach begin="${replyPageMaker.replyStartPage}" end="${replyPageMaker.replyEndPage}" var="idx">
+						<li <c:out value="${replyPageMaker.cri.page == idx ? 'class=info' : ''}" />>
+						<a href="readView?bno=${read.bno}${replyPageMaker.makeSearch(idx)}">${idx}</a></li>
+					</c:forEach>
+					
+				    <c:if test="${replyPageMaker.replyNext && replyPageMaker.replyEndPage > 0}">
+				    	<li><a href="readView?bno=${read.bno}${replyPageMaker.makeQuery(replyPageMaker.replyEndPage + 1)}">다음</a></li>
+				    </c:if> 
+				  </ul>
+				</div>				
+				
 				<form name="replyForm" method="post" class="form-horizontal">
 					<input type="hidden" id="bno" name="bno" value="${read.bno}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 
