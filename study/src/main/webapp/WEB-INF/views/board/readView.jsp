@@ -130,17 +130,19 @@
 				</div>
 				
 				<!-- 댓글 -->
+				<h2>댓글 목록</h2>
 				<div id="reply">
 					<ol class="replyList">
 						<c:forEach items="${replyList}" var="replyList">
 							<li>
-								<p>
-								작성자 : ${replyList.writer}<br />
-								작성 날짜 :  <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
-								</p>
-								  
-								<p>${replyList.content}</p>
-								<div>
+								<div style="border:1px solid gray; width: 800px; padding: 5px; margin-top:5px; 
+												margin-left: <c:out value="${15*replyList.redepth}"/>px; display: inline-block">
+									<p>
+									작성자 : ${replyList.writer}<br />
+									작성 날짜 :  <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
+									</p>  
+									<p>${replyList.content}</p>
+
 									<button type="button" class="replyUpdateBtn btn btn-warning" data-rno="${replyList.rno}">수정</button>
 									<button type="button" class="replyDeleteBtn btn btn-danger" data-rno="${replyList.rno}">삭제</button>
 								</div>

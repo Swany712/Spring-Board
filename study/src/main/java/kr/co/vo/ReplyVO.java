@@ -8,6 +8,28 @@ public class ReplyVO {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private int reparent;
+	private int redepth;
+	private int reorder;
+	
+	public int getReparent() {
+		return reparent;
+	}
+	public void setReparent(int reparent) {
+		this.reparent = reparent;
+	}
+	public int getRedepth() {
+		return redepth;
+	}
+	public void setRedepth(int redepth) {
+		this.redepth = redepth;
+	}
+	public int getReorder() {
+		return reorder;
+	}
+	public void setReorder(int reorder) {
+		this.reorder = reorder;
+	}
 	public int getBno() {
 		return bno;
 	}

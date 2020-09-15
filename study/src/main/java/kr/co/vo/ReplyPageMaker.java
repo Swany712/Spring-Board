@@ -53,7 +53,7 @@ public class ReplyPageMaker {
 	}
 	 
 	private void calcData() {
-		replyEndPage = (int) (Math.ceil(cri.getPage() / (double)replyDisplayPageNum) * replyDisplayPageNum);
+		replyEndPage = (int) (Math.ceil(cri.getReplyPage() / (double)replyDisplayPageNum) * replyDisplayPageNum);
 		replyStartPage = (replyEndPage - replyDisplayPageNum) + 1;
 	  
 		int tempEndPage = (int) (Math.ceil(replyTotalCount / (double)cri.getReplyPerPageNum()));
@@ -64,18 +64,18 @@ public class ReplyPageMaker {
 		replyNext = replyEndPage * cri.getReplyPerPageNum() >= replyTotalCount ? false : true;
 	}
 	
-	public String makeQuery(int page) {
+	public String makeQuery(int replyPage) {
 		String url;
 		
-		url = "&page=" + page + "&perPageNum=" + cri.getReplyPerPageNum() + "&searchType=&keyword=";
+		url = "&replyPage=" + replyPage + "&replyPerPageNum=" + cri.getReplyPerPageNum() + "&searchType=&keyword=";
 	    return url;
 	}
 	
-	public String makeSearch(int page)
+	public String makeSearch(int replyPage)
 	{
 		String url;
 		
-		url = "&page=" + page + "&perPageNum=" + cri.getReplyPerPageNum() + "&searchType=&keyword=";
+		url = "&replyPage=" + replyPage + "&replyPerPageNum=" + cri.getReplyPerPageNum() + "&searchType=&keyword=";
 	    return url;  
 	}
 

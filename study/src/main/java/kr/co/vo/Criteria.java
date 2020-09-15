@@ -6,12 +6,14 @@ public class Criteria {
 	private int perPageNum;
 	private int rowStart;
 	private int rowEnd;
+	private int replyPage;
 	private int replyPerPageNum;
 	private int replyRowStart;
 	private int replyRowEnd;
 	
 	public Criteria() {
 		this.page = 1;
+		this.replyPage = 1;
 		this.perPageNum = 10;
 		this.replyPerPageNum = 5;
 	}
@@ -30,6 +32,14 @@ public class Criteria {
 			return;
 		}
 		this.perPageNum = perPageNum;
+	}
+	
+	public void setReplyPage(int replyPage) {
+		if (replyPage <= 0) {
+			this.replyPage = 1;
+			return;
+		}
+		this.replyPage = replyPage;
 	}
 	
 	public void setReplyPerPageNum(int replyPerPageNum) {
@@ -54,6 +64,10 @@ public class Criteria {
 	
 	public int getPageStart() {
 		return (this.page - 1) * perPageNum;
+	}
+	
+	public int getReplyPage() {
+		return replyPage;
 	}
 	
 	public int getReplyPerPageNum() {

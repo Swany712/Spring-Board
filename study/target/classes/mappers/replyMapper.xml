@@ -37,16 +37,21 @@
 	
 	<!-- 댓글 작성 -->
 	<insert id="writeReply">
-		INSERT INTO MP_REPLY(
-		BNO
-		, RNO
-		, CONTENT
-		, WRITER
+		INSERT INTO MP_REPLY(	BNO
+							  , RNO
+							  , CONTENT
+							  , WRITER
+							  , REPARENT
+							  , REDEPTH
+							  , REORDER
+		) VALUES(	#{bno}
+				    , MP_REPLY_SEQ.NEXTVAL
+					, #{content}
+					, #{writer}	
+					, #{reparent}
+					, #{redepth}
+					, #{reorder}
 		)
-		VALUES(    #{bno}
-		, MP_REPLY_SEQ.NEXTVAL
-		, #{content}
-		, #{writer}	)
 	</insert>
 	
 	<!-- 댓글 수정 -->
